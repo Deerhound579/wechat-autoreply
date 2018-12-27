@@ -6,7 +6,7 @@ from wxpy import *
 from datetime import time, date
 from info_reader import read_csv, read_reply 
 
-bot = Bot(cache_path=True, console_qr=True)
+bot = Bot(cache_path=True, console_qr=-1)
 bot.enable_puid('wxpy_puid.pkl')
 
 # At first, I wanted a dictionary like {course_code: [NAME, START_TIME, END_TIME]}. 
@@ -35,7 +35,6 @@ day_course_dict = {0:mon_wed_crs, 1:tue_thur_crs, 2:mon_wed_crs, 3:tue_thur_crs,
 
 def test(day, cur_time):
     if day in day_course_dict:
-        print(f'Today is {day}')
         today_courses = day_course_dict.get(day)
         for c in today_courses:
             # Determine which time interval it is, and return the course
