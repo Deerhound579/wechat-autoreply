@@ -12,7 +12,7 @@ bot.enable_puid('wxpy_puid.pkl')
 # At first, I wanted a dictionary like {course_code: [NAME, START_TIME, END_TIME]}. 
 # For example, {251: ['数据结构与算法', 13:05, 14:25]}
 # But I think access the name like course[251], time like start_time[251] is more intuitive
-course_names, s_times, e_times = read_csv('course_info.csv')
+course_names, s_times, e_times, b_times = read_csv('course_info.csv')
 reply_msg = read_reply('reply_template.txt')
 
 # Initialize users to reply
@@ -39,9 +39,17 @@ def test(day, cur_time):
         today_courses = day_course_dict.get(day)
         for c in today_courses:
             # Determine which time interval it is, and return the course
-            if time(17,37) <= cur_time <= time(18,20):
-                print(reply_msg.substitute(COURSE=course_names[c], ENDTIME=e_times[c].strftime('%H:%M')))
-                return reply_msg.substitute(COURSE=course_names[c], ENDTIME=e_times[c].strftime('%H:%M'))
+            if time(17,37) <= cur_time <= time(22,20):
+                print(reply_msg.substitute(
+                                           COURSE=course_names[c], 
+                                           ENDTIME=e_times[c].strftime('%H:%M'),
+                                           BJTIME=b_times[c].strftime('%H:%M'))
+                                           )
+                return reply_msg.substitute(
+                                            COURSE=course_names[c],
+                                            ENDTIME=e_times[c].strftime('%H:%M'),
+                                            BJTIME=b_times[c].strftime('%H:%M')
+                                           )
 
 def find_course(day, cur_time):
     '''
@@ -55,7 +63,11 @@ def find_course(day, cur_time):
     today_courses = day_course_dict.get(day)
     for c in today_courses:
         if s_times[c] <= cur_time <= e_times[c]: # Determine which time interval it is, and return the course
-            return reply_msg.substitute(COURSE=course_names[c], ENDTIME=e_times[c].strftime('%H:%M'))
+            return reply_msg.substitute(
+                                        COURSE=course_names[c],
+                                        ENDTIME=e_times[c].strftime('%H:%M'),
+                                        BJTIME=b_times[c].strftime('%H:%M')
+                                        )
     return
 
 # Bad idea. Too many repetitive lines. I keep it here for comparison.
@@ -69,7 +81,7 @@ def find_course(day, cur_time):
 #             return reply_msg.substitute(COURSE=course_names[c], ENDTIME=e_times[c])
 
 # For all message types
-@bot.register(except_self=True)
+@bot.register(except_self=False)
 def reply_mycourse(msg):
     today = date.today().weekday() # Monday is 0
     r_time = msg.receive_time
@@ -80,9 +92,9 @@ def reply_mycourse(msg):
     
     # reply = find_course(today, rec_time)
     # return reply
-    if msg.sender in user_list:
+    if msg.sender in test_list:
         bot.file_helper.send(test(today, rec_time))
-        return test(today, rec_time)
+        # test(today, rec_time)
     
     
 embed()
