@@ -16,8 +16,11 @@ course_names, s_times, e_times, b_times = read_csv('course_info.csv')
 reply_msg = read_reply('reply_template.txt')
 
 # Initialize users to reply
-reply_to = ['葛雨菲', '渣渣瑶', '广柑精', '老汉', '婆婆']
-test_usr = ['里斯先']
+# reply_to = ['葛雨菲', '渣渣瑶', '广柑精', '老汉', '婆婆']
+# test_usr = ['里斯先']
+reply_to = [YOURUSERS]
+test_usr = [YOURUSERS]
+
 user_list = [ensure_one(bot.friends().search(name)) for name in reply_to]
 test_list = [ensure_one(bot.friends().search(name)) for name in test_usr]
 
