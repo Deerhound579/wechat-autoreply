@@ -1,12 +1,18 @@
 # Auto-reply for WeChat
 
+This repo is mainly for me to record some problems I had while building this autoreply bot.
+
 #### Problems:
 
 * How to run a function at a certain time. For example, when it's 13:05-14:25, Tuesday, my bot should reply a specific course name.
 
-  * Possible solution:
+  * ~~Possible solution:~~
 
-    Use Python `schedule`. Define several functions. Start a certain function at a certain time, and stop it at another time.
+    ~~Use Python `schedule`. Define several functions. Start a certain function at a certain time, and stop it at another time.~~
+  * Current solution(kind of brute force, waiting for improvement):
+    
+    Just manually use `if` to compare the receive time and the course time.
+  
 
 * How to compare the `msg.receive_time` ?
 
