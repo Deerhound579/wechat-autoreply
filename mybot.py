@@ -16,8 +16,8 @@ course_names, s_times, e_times, b_times = read_csv('course_info.csv')
 reply_msg = read_reply('reply_template.txt')
 
 # Initialize users to reply
-# reply_to = ['葛雨菲', '渣渣瑶', '广柑精', '老汉', '婆婆']
-# test_usr = ['里斯先']
+# reply_to = ['user1', 'user2', 'user3']
+# test_usr = ['user_test']
 reply_to = [YOURUSERS]
 test_usr = [YOURUSERS]
 
@@ -25,10 +25,8 @@ user_list = [ensure_one(bot.friends().search(name)) for name in reply_to]
 test_list = [ensure_one(bot.friends().search(name)) for name in test_usr]
 
 # Below is what I did at first, but I realized it was repetitive and boring.
-# mygege = ensure_one(bot.friends().search('葛雨菲'))
-# xiaozhang = ensure_one(bot.friends().search('渣渣瑶'))
-# mom = ensure_one(bot.friends().search('广柑精'))
-# dad = ensure_one(bot.friends().search('老汉'))
+# user1 = ensure_one(bot.friends().search('user1'))
+# user2 = ensure_one(bot.friends().search('user2'))
 
 mon_wed_crs = [302, 223]
 tue_thur_crs = [323, 251, 273]
